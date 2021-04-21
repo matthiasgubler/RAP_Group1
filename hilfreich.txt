@@ -1,0 +1,4 @@
+/home/ros/catkin_ws/src/icclab_summit_xl/scripts
+
+https://blog.zhaw.ch/icclab/running-the-icclab-ros-kinetic-environment-on-your-own-laptop/
+
