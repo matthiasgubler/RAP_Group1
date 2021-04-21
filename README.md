@@ -23,7 +23,7 @@ This will launch two containers, one with the ROS Kinetic environment installed 
 
 In another terminal, you can access the ROS container with:
 
-    docker exec -it rap_pose_lab_ros_1 bash
+    docker exec -it rap_group1_ros_1 bash
   
 From that console you can launch the scripts of the lab (e.g., roslaunch ...).
 In the end you'll have a split environment where you have anything that has to do with the GUI in the browser, but you can launch commands from the console.
