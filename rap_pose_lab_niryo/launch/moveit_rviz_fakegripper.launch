@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <arg name="urdf_without_meshes" default="false" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find icclab_grasping_niryo)/urdf/niryo_one.urdf.xacro"/> 
+
+  <!-- robot commander -->
+  <include file="$(find niryo_one_bringup)/launch/robot_commander.launch"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rap_pose_lab_niryo)/config/rap_lab_pose_niryo.rviz"/>
+
+   <node pkg="rap_pose_lab_niryo" type="pub_fake_gripper_position.sh" name="fake_gripper"/>
+</launch>
