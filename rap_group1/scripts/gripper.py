@@ -7,12 +7,12 @@ class Gripper:
         rospy.loginfo("Initializing Gripper")
         self.OPEN = 0.0
         self.CLOSE = 0.65
-        self.gripperPublisher = rospy.Publisher('/summit_xl/gripper_left_controller/command', Float64, queue_size=1)
+        self.gripper_publisher = rospy.Publisher('/summit_xl/gripper_left_controller/command', Float64, queue_size=1)
 
     def open(self):
         rospy.loginfo("Opening Gripper")
-        self.gripperPublisher.publish(self.OPEN)
+        self.gripper_publisher.publish(self.OPEN)
 
     def close(self):
         rospy.loginfo("Closing Gripper")
-        self.gripperPublisher.publish(self.CLOSE)
+        self.gripper_publisher.publish(self.CLOSE)

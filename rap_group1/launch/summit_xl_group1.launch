@@ -4,6 +4,7 @@
 	<!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
 	<include file="$(find icclab_summit_xl)/launch/irlab_sim_summit_xls_complete.launch">
 		<arg name="gazebo_world" value="$(find rap_group1)/worlds/box.world"/>
+		<arg name="slam" default="true"/>
 	</include>
 
         <!-- NAV STACK PARAMS -->

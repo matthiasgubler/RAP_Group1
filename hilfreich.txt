@@ -2,3 +2,5 @@
 
 https://blog.zhaw.ch/icclab/running-the-icclab-ros-kinetic-environment-on-your-own-laptop/
 
+https://github.com/xaxxontech/oculusprime_ros/blob/master/src/remote_nav.py
+
