@@ -1,6 +1,11 @@
-This project is based on ROS Kinetic and covers the topics of the RAP course lab: **RAP_POSE_LAB**
+## Build Workspace
 
-You have three options to work with the project as detailed below.
+    cd ~/catkin_ws/src/rap_group1/rap_group1 && catkin build --this && source ~/catkin_ws/devel/setup.bash
+
+## Run everything
+
+    roslaunch rap_group1 summit_xl_group1.launch
+    python scripts/solution.py
 
 ## On the GPU VMs provided by the course
 
@@ -29,22 +34,3 @@ From that console you can launch the scripts of the lab (e.g., roslaunch ...).
 In the end you'll have a split environment where you have anything that has to do with the GUI in the browser, but you can launch commands from the console.
 
 *NOTE:* the ZHAW VPN client gets in the way of the networking between the containers. If you experience issues try disconnecting from the VPN and restarting the composition.
-
-### Windows users
-
-Thank to a student volunteer (thanks Michael Y!) we have an update for running on Win. You'll need a TTY application, so:
-- find out the ID of the ros container in the composition with *docker ps*
-- launch bash in that container with:
-
-        winpty docker exec -it YOUR_CONTAINER_ID bash
-
-You can use that command multiple times to get multiple consoles.
-
--------------
-## On your own laptop (any Linux with Xserver and docker)
-
-You may also want to start a container without novnc, but connecting to a *local running Xserver instance*. For this you can use the following command:
-
-    ./run.sh
-
-Note that the xhost needs to be correctly set in order to make it work correctly. (xhost+ would do the trick)
