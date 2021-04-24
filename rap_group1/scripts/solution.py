@@ -11,22 +11,26 @@ class ChallengeTask:
         self.robot = Robot()
 
     def start(self):
+
         rospy.loginfo("Starting ChallengeTask")
 
-        self.robot.savePosition() #????
-        self.robot.startSpinning()
+        rospy.on_shutdown(self.cleanup)
 
-        while self.robot.perform_task:
-            self.robot.markerDetection()
+        self.robot.save_position()
+        self.robot.start_spinning()
+        while not rospy.is_shutdown():
+            self.robot.start_spinning()
 
-        self.robot.saveMap()
-        self.robot.returnToStartPosition()
+        rospy.spin()
+
+    def cleanup(self):
+        self.robot.stop()
+
 
 # If the python node is executed as main process (sourced directly)
 if __name__ == '__main__':
     try:
         task = ChallengeTask()
         task.start()
-        rospy.spin()
     except rospy.ROSInterruptException:
         rospy.loginfo("Aruco_tag test finished.")

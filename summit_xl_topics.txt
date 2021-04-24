@@ -1,10 +1,14 @@
+/ar_pose_marker
+/ar_track_alvar/enable_detection
+/ar_track_alvar/parameter_descriptions
+/ar_track_alvar/parameter_updates
 /calibrated
+/camera/color/camera_info
+/camera/color/image_raw
 /clicked_point
 /clock
 /cloud_indexed
-/cloud_indexed_pc_only
 /cloud_pcd
-/cloud_table
 /detect_grasps/clustered_grasps
 /detect_grasps/grasps_rviz
 /diagnostics

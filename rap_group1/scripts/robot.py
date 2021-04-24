@@ -17,44 +17,54 @@ from ar_track_alvar_msgs.msg import AlvarMarkers
 from moveit_python.geometry import rotate_pose_msg_by_euler_angles, translate_pose_msg
 from gripper import Gripper
 from walker import Walker
-from marker import Marker
+from marker import MarkerDetection
 
 class Robot:
     def __init__(self):
         rospy.loginfo("Initializing Robot")
-        self.perform_task = True
-        self.detected_markers = {}
+        self.detected_markers = set()
         self.TERMINAL_MARKER_ID = 17
+        self.interrupt = False
 
         rospy.loginfo("Initializing Arm and Gripper")
         ## XL Summit
         self.gripper = Gripper()
         self.walker = Walker()
-        self.marker = Marker(self.marker_detected_callback)
+        self.marker = MarkerDetection(self.marker_detected_callback)
 
         rospy.loginfo("Initializing TF2")
         self.tf_buffer = tf2_ros.Buffer()
         self.listener = tf2_ros.TransformListener(self.tf_buffer)
         self.rate = rospy.Rate(10.0)
 
-        self.marker_sub = rospy.Subscriber('/visualization_marker', Marker, self.callback_marker)
-
-
-    def savePosition(self):
+    def save_position(self):
         rospy.loginfo("Saving Position")
+        #TODO Todo save slam position
 
-    def startSpinning(self):
-        rospy.loginfo("Start spinning")
-        self.walker.spin()
+    def start_spinning(self):
+        if not self.interrupt:
+            self.walker.spin()
 
-    def markerDetection(self):
+    def stop(self):
+        rospy.loginfo("Robot stop")
+        self.interrupt = True
+        self.walker.stop()
+
+    def marker_detected(self, data):
         rospy.loginfo("Start marker detection")
+        self.stop()
+        rospy.sleep(1)
+        #TODO Save last position
+        #TODO Approach Stuff
+        #TODO Grasping Logic
+        #TODO Return to last position
+        self.interrupt = False
 
     def marker_detected_callback(self, data):
         rospy.loginfo("Marker detected")
         if self.TERMINAL_MARKER_ID == data.id:
             rospy.loginfo("Terminal Marker [%s] detected, ending performance", data.id)
-            self.perform_task = False
+            self.end_task()
         else:
             rospy.loginfo("Marker [%s] detected", data.id)
             if data.id in self.detected_markers:
@@ -62,11 +72,20 @@ class Robot:
             else:
                 rospy.loginfo("New marker")
                 self.detected_markers.add(data.id)
-                ##TODO Approach Marker
+                self.marker_detected(data)
 
-    def saveMap(self):
+    def save_map(self):
         rospy.loginfo("Saving map")
+        #TODO Todo save slam map
 
-    def returnToStartPosition(self):
+    def return_to_startposition(self):
         rospy.loginfo("Returning to start position")
+        #TODO Todo return to startposition
+
+    def end_task(self):
+        rospy.loginfo("Ending Task")
+        self.walker.stop()
+        self.save_map()
+        self.return_to_startposition()
+        rospy.signal_shutdown("task ended successfully")
 
