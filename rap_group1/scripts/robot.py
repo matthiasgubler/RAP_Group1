@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 import rospy
 from std_msgs.msg import String
 from visualization_msgs.msg import Marker
@@ -75,8 +76,8 @@ class Robot:
         rospy.loginfo("Transform: %s", transform)
         
         # TODO Approach Stuff
-        pose_transformed.pose.orientation.z = self.saved_position.orientation.z
-        pose_transformed.pose.orientation.w = self.saved_position.orientation.w
+        #pose_transformed.pose.orientation.z = self.saved_position.orientation.z
+        #pose_transformed.pose.orientation.w = self.saved_position.orientation.w
         self.movebase.set_goal(pose_transformed.pose)
         rospy.sleep(1)
 
@@ -118,14 +119,7 @@ class Robot:
     def save_map(self):
         rospy.loginfo("Saving map")
         # TODO Todo save slam map
-        # Was done in MAP Lab with (cli): rosrun map_server map_saver -f ~/map
-        #/summit_xl/move_group/save_map
-        #Node: /summit_xl/move_group
-        #Type: moveit_msgs/SaveMap
-        #Args: filename
-        #self.map_saver = rospy.Publisher('/summit_xl/move_group/save_map', SaveMap, queue_size=1)
-        rospy.sleep(1)
-        #self.map_saver.publish("saved_map.yaml")
+        os.system("rosrun map_server map_saver -f ~/map map:=/summit_xl/map")
 
     def return_to_saved_position(self):
         rospy.loginfo("Returning to saved position: %s", self.saved_position)
